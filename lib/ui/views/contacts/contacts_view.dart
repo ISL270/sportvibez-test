@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'contacts_viewmodel.dart';
 
 class ContactsView extends StackedView<ContactsViewModel> {
-  const ContactsView({Key? key}) : super(key: key);
+  const ContactsView({super.key});
 
   @override
   Widget builder(
