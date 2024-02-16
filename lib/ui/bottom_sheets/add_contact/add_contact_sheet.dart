@@ -82,7 +82,7 @@ class AddContactSheet extends StackedView<AddContactSheetModel>
                 'Add contact',
                 style: TextStyle(
                   fontSize: 23,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               IconButton(
