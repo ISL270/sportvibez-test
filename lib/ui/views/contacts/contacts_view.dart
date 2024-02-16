@@ -7,7 +7,7 @@ import 'contacts_viewmodel.dart';
 class ContactsView extends StackedView<ContactsViewModel> {
   const ContactsView({super.key});
 
-  static const route = '/contacts';
+  static const routeName = 'contacts';
 
   @override
   void onViewModelReady(ContactsViewModel viewModel) {
@@ -35,8 +35,8 @@ class ContactsView extends StackedView<ContactsViewModel> {
         title: Text(
           'Contacts',
           style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
             fontWeight: FontWeight.w700,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,

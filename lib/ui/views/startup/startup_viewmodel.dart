@@ -9,6 +9,6 @@ class StartupViewModel extends BaseViewModel {
 
   Future runStartupLogic() async {
     await _cacheService.init();
-    router.go(ContactsView.route);
+    clearAndNavigate(ContactsView.routeName);
   }
 }
