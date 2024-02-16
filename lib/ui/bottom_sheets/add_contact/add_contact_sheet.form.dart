@@ -7,17 +7,18 @@
 // ignore_for_file: public_member_api_docs, constant_identifier_names, non_constant_identifier_names,unnecessary_this
 
 import 'package:flutter/material.dart';
+import 'package:sportvibez_test/app/helpres/text_validator.dart';
 import 'package:stacked/stacked.dart';
 
-const bool _autoTextFieldValidation = true;
+const bool _autoTextFieldValidation = false;
 
 const String FirstNameValueKey = 'firstName';
 const String LastNameValueKey = 'lastName';
-const String PhoneNumberValueKey = 'phoneNumber';
 const String NickNameValueKey = 'nickName';
-const String RelationshipValueKey = 'relationship';
+const String PhoneNumberValueKey = 'phoneNumber';
 const String EmailValueKey = 'email';
 const String NotesValueKey = 'notes';
+const String RelationshipValueKey = 'relationship';
 
 final Map<String, TextEditingController>
     _AddContactSheetTextEditingControllers = {};
@@ -26,13 +27,13 @@ final Map<String, FocusNode> _AddContactSheetFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _AddContactSheetTextValidations =
     {
-  FirstNameValueKey: null,
-  LastNameValueKey: null,
-  PhoneNumberValueKey: null,
+  FirstNameValueKey: TextValidators.nameValidator,
+  LastNameValueKey: TextValidators.nameValidator,
   NickNameValueKey: null,
-  RelationshipValueKey: null,
-  EmailValueKey: null,
+  PhoneNumberValueKey: TextValidators.phoneNumValidator,
+  EmailValueKey: TextValidators.emailValidator,
   NotesValueKey: null,
+  RelationshipValueKey: null,
 };
 
 mixin $AddContactSheet {
@@ -40,25 +41,25 @@ mixin $AddContactSheet {
       _getFormTextEditingController(FirstNameValueKey);
   TextEditingController get lastNameController =>
       _getFormTextEditingController(LastNameValueKey);
-  TextEditingController get phoneNumberController =>
-      _getFormTextEditingController(PhoneNumberValueKey);
   TextEditingController get nickNameController =>
       _getFormTextEditingController(NickNameValueKey);
-  TextEditingController get relationshipController =>
-      _getFormTextEditingController(RelationshipValueKey);
+  TextEditingController get phoneNumberController =>
+      _getFormTextEditingController(PhoneNumberValueKey);
   TextEditingController get emailController =>
       _getFormTextEditingController(EmailValueKey);
   TextEditingController get notesController =>
       _getFormTextEditingController(NotesValueKey);
+  TextEditingController get relationshipController =>
+      _getFormTextEditingController(RelationshipValueKey);
 
   FocusNode get firstNameFocusNode => _getFormFocusNode(FirstNameValueKey);
   FocusNode get lastNameFocusNode => _getFormFocusNode(LastNameValueKey);
-  FocusNode get phoneNumberFocusNode => _getFormFocusNode(PhoneNumberValueKey);
   FocusNode get nickNameFocusNode => _getFormFocusNode(NickNameValueKey);
-  FocusNode get relationshipFocusNode =>
-      _getFormFocusNode(RelationshipValueKey);
+  FocusNode get phoneNumberFocusNode => _getFormFocusNode(PhoneNumberValueKey);
   FocusNode get emailFocusNode => _getFormFocusNode(EmailValueKey);
   FocusNode get notesFocusNode => _getFormFocusNode(NotesValueKey);
+  FocusNode get relationshipFocusNode =>
+      _getFormFocusNode(RelationshipValueKey);
 
   TextEditingController _getFormTextEditingController(
     String key, {
@@ -86,11 +87,11 @@ mixin $AddContactSheet {
   void syncFormWithViewModel(FormStateHelper model) {
     firstNameController.addListener(() => _updateFormData(model));
     lastNameController.addListener(() => _updateFormData(model));
-    phoneNumberController.addListener(() => _updateFormData(model));
     nickNameController.addListener(() => _updateFormData(model));
-    relationshipController.addListener(() => _updateFormData(model));
+    phoneNumberController.addListener(() => _updateFormData(model));
     emailController.addListener(() => _updateFormData(model));
     notesController.addListener(() => _updateFormData(model));
+    relationshipController.addListener(() => _updateFormData(model));
 
     _updateFormData(model, forceValidate: _autoTextFieldValidation);
   }
@@ -104,11 +105,11 @@ mixin $AddContactSheet {
   void listenToFormUpdated(FormViewModel model) {
     firstNameController.addListener(() => _updateFormData(model));
     lastNameController.addListener(() => _updateFormData(model));
-    phoneNumberController.addListener(() => _updateFormData(model));
     nickNameController.addListener(() => _updateFormData(model));
-    relationshipController.addListener(() => _updateFormData(model));
+    phoneNumberController.addListener(() => _updateFormData(model));
     emailController.addListener(() => _updateFormData(model));
     notesController.addListener(() => _updateFormData(model));
+    relationshipController.addListener(() => _updateFormData(model));
 
     _updateFormData(model, forceValidate: _autoTextFieldValidation);
   }
@@ -120,11 +121,11 @@ mixin $AddContactSheet {
         ..addAll({
           FirstNameValueKey: firstNameController.text,
           LastNameValueKey: lastNameController.text,
-          PhoneNumberValueKey: phoneNumberController.text,
           NickNameValueKey: nickNameController.text,
-          RelationshipValueKey: relationshipController.text,
+          PhoneNumberValueKey: phoneNumberController.text,
           EmailValueKey: emailController.text,
           NotesValueKey: notesController.text,
+          RelationshipValueKey: relationshipController.text,
         }),
     );
 
@@ -168,13 +169,13 @@ extension ValueProperties on FormStateHelper {
 
   String? get firstNameValue => this.formValueMap[FirstNameValueKey] as String?;
   String? get lastNameValue => this.formValueMap[LastNameValueKey] as String?;
+  String? get nickNameValue => this.formValueMap[NickNameValueKey] as String?;
   String? get phoneNumberValue =>
       this.formValueMap[PhoneNumberValueKey] as String?;
-  String? get nickNameValue => this.formValueMap[NickNameValueKey] as String?;
-  String? get relationshipValue =>
-      this.formValueMap[RelationshipValueKey] as String?;
   String? get emailValue => this.formValueMap[EmailValueKey] as String?;
   String? get notesValue => this.formValueMap[NotesValueKey] as String?;
+  String? get relationshipValue =>
+      this.formValueMap[RelationshipValueKey] as String?;
 
   set firstNameValue(String? value) {
     this.setData(
@@ -198,18 +199,6 @@ extension ValueProperties on FormStateHelper {
     }
   }
 
-  set phoneNumberValue(String? value) {
-    this.setData(
-      this.formValueMap..addAll({PhoneNumberValueKey: value}),
-    );
-
-    if (_AddContactSheetTextEditingControllers.containsKey(
-        PhoneNumberValueKey)) {
-      _AddContactSheetTextEditingControllers[PhoneNumberValueKey]?.text =
-          value ?? '';
-    }
-  }
-
   set nickNameValue(String? value) {
     this.setData(
       this.formValueMap..addAll({NickNameValueKey: value}),
@@ -221,14 +210,14 @@ extension ValueProperties on FormStateHelper {
     }
   }
 
-  set relationshipValue(String? value) {
+  set phoneNumberValue(String? value) {
     this.setData(
-      this.formValueMap..addAll({RelationshipValueKey: value}),
+      this.formValueMap..addAll({PhoneNumberValueKey: value}),
     );
 
     if (_AddContactSheetTextEditingControllers.containsKey(
-        RelationshipValueKey)) {
-      _AddContactSheetTextEditingControllers[RelationshipValueKey]?.text =
+        PhoneNumberValueKey)) {
+      _AddContactSheetTextEditingControllers[PhoneNumberValueKey]?.text =
           value ?? '';
     }
   }
@@ -253,57 +242,69 @@ extension ValueProperties on FormStateHelper {
     }
   }
 
+  set relationshipValue(String? value) {
+    this.setData(
+      this.formValueMap..addAll({RelationshipValueKey: value}),
+    );
+
+    if (_AddContactSheetTextEditingControllers.containsKey(
+        RelationshipValueKey)) {
+      _AddContactSheetTextEditingControllers[RelationshipValueKey]?.text =
+          value ?? '';
+    }
+  }
+
   bool get hasFirstName =>
       this.formValueMap.containsKey(FirstNameValueKey) &&
       (firstNameValue?.isNotEmpty ?? false);
   bool get hasLastName =>
       this.formValueMap.containsKey(LastNameValueKey) &&
       (lastNameValue?.isNotEmpty ?? false);
-  bool get hasPhoneNumber =>
-      this.formValueMap.containsKey(PhoneNumberValueKey) &&
-      (phoneNumberValue?.isNotEmpty ?? false);
   bool get hasNickName =>
       this.formValueMap.containsKey(NickNameValueKey) &&
       (nickNameValue?.isNotEmpty ?? false);
-  bool get hasRelationship =>
-      this.formValueMap.containsKey(RelationshipValueKey) &&
-      (relationshipValue?.isNotEmpty ?? false);
+  bool get hasPhoneNumber =>
+      this.formValueMap.containsKey(PhoneNumberValueKey) &&
+      (phoneNumberValue?.isNotEmpty ?? false);
   bool get hasEmail =>
       this.formValueMap.containsKey(EmailValueKey) &&
       (emailValue?.isNotEmpty ?? false);
   bool get hasNotes =>
       this.formValueMap.containsKey(NotesValueKey) &&
       (notesValue?.isNotEmpty ?? false);
+  bool get hasRelationship =>
+      this.formValueMap.containsKey(RelationshipValueKey) &&
+      (relationshipValue?.isNotEmpty ?? false);
 
   bool get hasFirstNameValidationMessage =>
       this.fieldsValidationMessages[FirstNameValueKey]?.isNotEmpty ?? false;
   bool get hasLastNameValidationMessage =>
       this.fieldsValidationMessages[LastNameValueKey]?.isNotEmpty ?? false;
-  bool get hasPhoneNumberValidationMessage =>
-      this.fieldsValidationMessages[PhoneNumberValueKey]?.isNotEmpty ?? false;
   bool get hasNickNameValidationMessage =>
       this.fieldsValidationMessages[NickNameValueKey]?.isNotEmpty ?? false;
-  bool get hasRelationshipValidationMessage =>
-      this.fieldsValidationMessages[RelationshipValueKey]?.isNotEmpty ?? false;
+  bool get hasPhoneNumberValidationMessage =>
+      this.fieldsValidationMessages[PhoneNumberValueKey]?.isNotEmpty ?? false;
   bool get hasEmailValidationMessage =>
       this.fieldsValidationMessages[EmailValueKey]?.isNotEmpty ?? false;
   bool get hasNotesValidationMessage =>
       this.fieldsValidationMessages[NotesValueKey]?.isNotEmpty ?? false;
+  bool get hasRelationshipValidationMessage =>
+      this.fieldsValidationMessages[RelationshipValueKey]?.isNotEmpty ?? false;
 
   String? get firstNameValidationMessage =>
       this.fieldsValidationMessages[FirstNameValueKey];
   String? get lastNameValidationMessage =>
       this.fieldsValidationMessages[LastNameValueKey];
-  String? get phoneNumberValidationMessage =>
-      this.fieldsValidationMessages[PhoneNumberValueKey];
   String? get nickNameValidationMessage =>
       this.fieldsValidationMessages[NickNameValueKey];
-  String? get relationshipValidationMessage =>
-      this.fieldsValidationMessages[RelationshipValueKey];
+  String? get phoneNumberValidationMessage =>
+      this.fieldsValidationMessages[PhoneNumberValueKey];
   String? get emailValidationMessage =>
       this.fieldsValidationMessages[EmailValueKey];
   String? get notesValidationMessage =>
       this.fieldsValidationMessages[NotesValueKey];
+  String? get relationshipValidationMessage =>
+      this.fieldsValidationMessages[RelationshipValueKey];
 }
 
 extension Methods on FormStateHelper {
@@ -311,26 +312,26 @@ extension Methods on FormStateHelper {
       this.fieldsValidationMessages[FirstNameValueKey] = validationMessage;
   setLastNameValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[LastNameValueKey] = validationMessage;
-  setPhoneNumberValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[PhoneNumberValueKey] = validationMessage;
   setNickNameValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[NickNameValueKey] = validationMessage;
-  setRelationshipValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[RelationshipValueKey] = validationMessage;
+  setPhoneNumberValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[PhoneNumberValueKey] = validationMessage;
   setEmailValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[EmailValueKey] = validationMessage;
   setNotesValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[NotesValueKey] = validationMessage;
+  setRelationshipValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[RelationshipValueKey] = validationMessage;
 
   /// Clears text input fields on the Form
   void clearForm() {
     firstNameValue = '';
     lastNameValue = '';
-    phoneNumberValue = '';
     nickNameValue = '';
-    relationshipValue = '';
+    phoneNumberValue = '';
     emailValue = '';
     notesValue = '';
+    relationshipValue = '';
   }
 
   /// Validates text input fields on the Form
@@ -338,11 +339,11 @@ extension Methods on FormStateHelper {
     this.setValidationMessages({
       FirstNameValueKey: getValidationMessage(FirstNameValueKey),
       LastNameValueKey: getValidationMessage(LastNameValueKey),
-      PhoneNumberValueKey: getValidationMessage(PhoneNumberValueKey),
       NickNameValueKey: getValidationMessage(NickNameValueKey),
-      RelationshipValueKey: getValidationMessage(RelationshipValueKey),
+      PhoneNumberValueKey: getValidationMessage(PhoneNumberValueKey),
       EmailValueKey: getValidationMessage(EmailValueKey),
       NotesValueKey: getValidationMessage(NotesValueKey),
+      RelationshipValueKey: getValidationMessage(RelationshipValueKey),
     });
   }
 }
@@ -364,9 +365,9 @@ void updateValidationData(FormStateHelper model) =>
     model.setValidationMessages({
       FirstNameValueKey: getValidationMessage(FirstNameValueKey),
       LastNameValueKey: getValidationMessage(LastNameValueKey),
-      PhoneNumberValueKey: getValidationMessage(PhoneNumberValueKey),
       NickNameValueKey: getValidationMessage(NickNameValueKey),
-      RelationshipValueKey: getValidationMessage(RelationshipValueKey),
+      PhoneNumberValueKey: getValidationMessage(PhoneNumberValueKey),
       EmailValueKey: getValidationMessage(EmailValueKey),
       NotesValueKey: getValidationMessage(NotesValueKey),
+      RelationshipValueKey: getValidationMessage(RelationshipValueKey),
     });

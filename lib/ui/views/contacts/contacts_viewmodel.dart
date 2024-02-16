@@ -1,5 +1,6 @@
 import 'package:sportvibez_test/app/app.bottomsheets.dart';
 import 'package:sportvibez_test/app/app.locator.dart';
+import 'package:sportvibez_test/app/domain_models/contact.dart';
 import 'package:sportvibez_test/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -7,8 +8,8 @@ import 'package:stacked_services/stacked_services.dart';
 class ContactsViewModel extends BaseViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
 
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
+  void showBottomSheet() async {
+    final res = await _bottomSheetService.showCustomSheet<Contact, void>(
       isScrollControlled: true,
       title: ksHomeBottomSheetTitle,
       variant: BottomSheetType.addContact,
