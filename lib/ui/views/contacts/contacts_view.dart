@@ -7,6 +7,8 @@ import 'contacts_viewmodel.dart';
 class ContactsView extends StackedView<ContactsViewModel> {
   const ContactsView({super.key});
 
+  static const route = '/contacts';
+
   @override
   void onViewModelReady(ContactsViewModel viewModel) {
     viewModel.getContacts();

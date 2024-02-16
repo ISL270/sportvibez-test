@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sportvibez_test/app/app.bottomsheets.dart';
 import 'package:sportvibez_test/app/app.dialogs.dart';
 import 'package:sportvibez_test/app/app.locator.dart';
-import 'package:sportvibez_test/app/app.router.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:sportvibez_test/services/navigation/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,14 +17,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.startupView,
-      navigatorKey: StackedService.navigatorKey,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
-      navigatorObservers: [
-        StackedService.routeObserver,
-      ],
+      routerDelegate: router.routerDelegate,
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),

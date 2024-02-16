@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  go_router: ^13.2.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   stacked: ^3.4.0
