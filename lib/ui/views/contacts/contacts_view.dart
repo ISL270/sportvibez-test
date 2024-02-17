@@ -34,21 +34,35 @@ class ContactsView extends StackedView<ContactsViewModel> {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: ListView.separated(
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          itemCount: viewModel.contacts.length,
-          itemBuilder: (context, i) => ContactTile(
-            contact: viewModel.contacts[i],
-            onActionTaken: (res) {
-              if (res.action == ContactAction.delete) {
-                viewModel.deleteContact(i);
-              }
-            },
-          ),
-          separatorBuilder: (context, index) => const Divider(),
-        ),
+      body: Builder(
+        builder: (context) {
+          if (viewModel.contacts.isEmpty) {
+            return const Center(
+                child: Text(
+              'You have no contacts!\nLets add some from the bottom below 👇',
+              textAlign: TextAlign.center,
+            ));
+          }
+          return Padding(
+            padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+            child: ListView.separated(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              itemCount: viewModel.contacts.length,
+              itemBuilder: (context, i) => ContactTile(
+                contact: viewModel.contacts[i],
+                onActionTaken: (res) {
+                  switch (res.action) {
+                    case ContactAction.delete:
+                      viewModel.deleteContact(i);
+                    case ContactAction.edit:
+                      viewModel.updateContact(i, res.contact!);
+                  }
+                },
+              ),
+              separatorBuilder: (context, index) => const Divider(),
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => viewModel.showBottomSheet(context),

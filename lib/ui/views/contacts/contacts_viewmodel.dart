@@ -27,6 +27,11 @@ class ContactsViewModel extends BaseViewModel {
     rebuildUi();
   }
 
+  Future<void> updateContact(int index, Contact updatedContact) async {
+    await _cacheService.updateContact(index, updatedContact);
+    getContacts();
+  }
+
   Future<void> deleteContact(int index) async {
     await _cacheService.deleteContact(index);
     getContacts();

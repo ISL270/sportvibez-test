@@ -36,6 +36,10 @@ class HiveService {
     return cmList.map((e) => e.toDomainModel()).toList();
   }
 
+  Future<void> updateContact(int index, Contact updatedContact) async {
+    await contactsBox.putAt(index, updatedContact.toCacheModel());
+  }
+
   Future<void> deleteContact(int index) async {
     await contactsBox.deleteAt(index);
   }

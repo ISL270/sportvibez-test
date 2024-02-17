@@ -162,6 +162,7 @@ class AddContactSheet extends StackedView<AddContactSheetModel>
                 verticalSpaceMedium,
                 TextFormField(
                   controller: notesController,
+                  autovalidateMode: AutovalidateMode.disabled,
                   decoration: InputDecoration(
                     filled: true,
                     labelText: 'Notes',
@@ -171,6 +172,7 @@ class AddContactSheet extends StackedView<AddContactSheetModel>
                 verticalSpaceMedium,
                 TextFormField(
                   controller: relationshipController,
+                  autovalidateMode: AutovalidateMode.disabled,
                   decoration: InputDecoration(
                     filled: true,
                     labelText: 'Relationship',
