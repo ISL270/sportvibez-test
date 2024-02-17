@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:sportvibez_test/app/domain_models/contact.dart';
+import 'package:sportvibez_test/ui/views/contact_details/contact_details_view.dart';
+import 'package:sportvibez_test/ui/views/contact_details/contact_view_response.dart';
 
 class ContactTile extends StatelessWidget {
   final Contact contact;
-  const ContactTile(this.contact, {super.key});
+  final Function(ContactViewResponse res) onActionTaken;
+
+  const ContactTile({
+    super.key,
+    required this.contact,
+    required this.onActionTaken,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +32,11 @@ class ContactTile extends StatelessWidget {
           color: theme.colorScheme.primary,
         ),
       ),
+      onTap: () async {
+        final res = await ContactDetailsView.route(context, contact);
+        if (res == null) return;
+        onActionTaken.call(res);
+      },
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sportvibez_test/ui/views/contact_details/contact_view_response.dart';
 import 'package:sportvibez_test/ui/views/contacts/contact_tile.dart';
 import 'package:stacked/stacked.dart';
 
@@ -23,14 +24,6 @@ class ContactsView extends StackedView<ContactsViewModel> {
   ) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      floatingActionButton: FloatingActionButton(
-        onPressed: viewModel.showBottomSheet,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-      ),
       appBar: AppBar(
         title: Text(
           'Contacts',
@@ -46,8 +39,23 @@ class ContactsView extends StackedView<ContactsViewModel> {
         child: ListView.separated(
           padding: const EdgeInsets.symmetric(vertical: 15),
           itemCount: viewModel.contacts.length,
-          itemBuilder: (context, i) => ContactTile(viewModel.contacts[i]),
+          itemBuilder: (context, i) => ContactTile(
+            contact: viewModel.contacts[i],
+            onActionTaken: (res) {
+              if (res.action == ContactAction.delete) {
+                viewModel.deleteContact(i);
+              }
+            },
+          ),
           separatorBuilder: (context, index) => const Divider(),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => viewModel.showBottomSheet(context),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        child: Icon(
+          Icons.add,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
     );

@@ -751,4 +751,14 @@ class MockHiveService extends _i1.Mock implements _i8.HiveService {
         returnValue: <_i10.Contact>[],
         returnValueForMissingStub: <_i10.Contact>[],
       ) as List<_i10.Contact>);
+
+  @override
+  _i6.Future<void> deleteContact(int? index) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteContact,
+          [index],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }
