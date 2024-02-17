@@ -743,14 +743,21 @@ class MockHiveService extends _i1.Mock implements _i8.HiveService {
       ) as _i6.Future<void>);
 
   @override
-  List<_i10.Contact> getAllContacts() => (super.noSuchMethod(
+  _i6.Future<void> updateContact(
+    int? index,
+    _i10.Contact? updatedContact,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #getAllContacts,
-          [],
+          #updateContact,
+          [
+            index,
+            updatedContact,
+          ],
         ),
-        returnValue: <_i10.Contact>[],
-        returnValueForMissingStub: <_i10.Contact>[],
-      ) as List<_i10.Contact>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 
   @override
   _i6.Future<void> deleteContact(int? index) => (super.noSuchMethod(
@@ -761,4 +768,14 @@ class MockHiveService extends _i1.Mock implements _i8.HiveService {
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
+
+  @override
+  List<_i10.Contact> getAllContacts() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllContacts,
+          [],
+        ),
+        returnValue: <_i10.Contact>[],
+        returnValueForMissingStub: <_i10.Contact>[],
+      ) as List<_i10.Contact>);
 }

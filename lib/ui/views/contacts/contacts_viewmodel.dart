@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sportvibez_test/app/app.locator.dart';
 import 'package:sportvibez_test/app/domain_models/contact.dart';
-import 'package:sportvibez_test/services/cache/hive_service.dart';
+import 'package:sportvibez_test/services/cache/i_cache_service.dart';
 import 'package:sportvibez_test/ui/bottom_sheets/add_contact/add_contact_sheet.dart';
 import 'package:stacked/stacked.dart';
 
 class ContactsViewModel extends BaseViewModel {
-  final _cacheService = locator<HiveService>();
+  final _cacheService = locator<CacheService>();
 
   List<Contact> _contacts = [];
   List<Contact> get contacts => _contacts;

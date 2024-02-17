@@ -9,6 +9,7 @@
 import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/cache/hive_service.dart';
+import '../services/cache/i_cache_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -21,5 +22,5 @@ Future<void> setupLocator({
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-  locator.registerLazySingleton(() => HiveService());
+  locator.registerLazySingleton<CacheService>(() => HiveService());
 }
