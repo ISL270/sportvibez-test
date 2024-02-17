@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sportvibez_test/app/app.bottomsheets.dart';
 import 'package:sportvibez_test/app/app.dialogs.dart';
 import 'package:sportvibez_test/app/app.locator.dart';
 import 'package:sportvibez_test/services/navigation/router.dart';
@@ -8,7 +7,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
   setupDialogUi();
-  setupBottomSheetUi();
   runApp(const MainApp());
 }
 

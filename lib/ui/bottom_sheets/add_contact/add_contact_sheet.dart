@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sportvibez_test/app/domain_models/contact.dart';
 import 'package:sportvibez_test/app/helpres/text_validator.dart';
 import 'package:sportvibez_test/ui/bottom_sheets/add_contact/add_contact_sheet.form.dart';
 import 'package:sportvibez_test/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 import 'add_contact_sheet_model.dart';
 
@@ -35,13 +35,7 @@ import 'add_contact_sheet_model.dart';
 )
 class AddContactSheet extends StackedView<AddContactSheetModel>
     with $AddContactSheet {
-  final Function(SheetResponse<Contact> response)? completer;
-  final SheetRequest request;
-  const AddContactSheet({
-    super.key,
-    required this.completer,
-    required this.request,
-  });
+  const AddContactSheet({super.key});
 
   @override
   void onViewModelReady(AddContactSheetModel viewModel) {
@@ -63,7 +57,7 @@ class AddContactSheet extends StackedView<AddContactSheetModel>
   ) {
     return Container(
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * .8,
+        maxHeight: MediaQuery.of(context).size.height * .75,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 25) +
           const EdgeInsets.only(top: 25, bottom: 0),
@@ -98,7 +92,7 @@ class AddContactSheet extends StackedView<AddContactSheetModel>
                       notes: notesController.text,
                       relationship: relationshipController.text,
                     );
-                    completer?.call(SheetResponse(data: newContact));
+                    context.pop(newContact);
                   }
                 },
                 icon: const Icon(Icons.check),
