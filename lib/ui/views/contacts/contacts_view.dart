@@ -39,7 +39,7 @@ class ContactsView extends StackedView<ContactsViewModel> {
           if (viewModel.contacts.isEmpty) {
             return const Center(
                 child: Text(
-              'You have no contacts!\nLets add some from the bottom below 👇',
+              'You have no contacts!\nLets add some from the botton below 👇',
               textAlign: TextAlign.center,
             ));
           }

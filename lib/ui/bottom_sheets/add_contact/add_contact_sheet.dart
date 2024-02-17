@@ -57,10 +57,13 @@ class AddContactSheet extends StackedView<AddContactSheetModel>
   ) {
     return Container(
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * .75,
+        maxHeight: MediaQuery.of(context).size.height * .77,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 25) +
-          const EdgeInsets.only(top: 25, bottom: 0),
+          EdgeInsets.only(
+            top: 25,
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -104,6 +107,7 @@ class AddContactSheet extends StackedView<AddContactSheetModel>
           verticalSpaceMedium,
           Expanded(
             child: ListView(
+              padding: const EdgeInsets.only(bottom: 25),
               children: [
                 TextFormField(
                   controller: firstNameController,
